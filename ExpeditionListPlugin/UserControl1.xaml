@@ -146,13 +146,7 @@
                 <Run x:Name="ParamValue" Text="{Binding Value, Mode=OneWay}" />
                 </TextBlock>
                 <DataTemplate.Triggers>
-                    <DataTrigger Binding="{Binding Value}" Value="true">
-                        <Setter TargetName="ParamValue" Property="Text" Value="○"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Value}" Value="false">
-                        <Setter TargetName="ParamValue" Property="Text" Value="×"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Value}" Value="{x:Null}">
+                    <DataTrigger Binding="{Binding Value}" Value="">
                         <Setter Property="Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </DataTemplate.Triggers>
@@ -215,25 +209,45 @@
                             <CheckBox Content="鎮守府"
 									  IsChecked="{Binding isArea1Contain, Mode=TwoWay}"
 									  Margin="10,0" />
+                            <CheckBox Content="鎮守府Ex"
+									  IsChecked="{Binding isArea1ExContain, Mode=TwoWay}"
+									  Margin="10,0" />
                             <CheckBox Content="南西諸島"
 									  IsChecked="{Binding isArea2Contain, Mode=TwoWay}"
+									  Margin="10,0" />
+                            <CheckBox Content="南西諸島Ex"
+									  IsChecked="{Binding isArea2ExContain, Mode=TwoWay}"
 									  Margin="10,0" />
                             <CheckBox Content="北方"
 									  IsChecked="{Binding isArea3Contain, Mode=TwoWay}"
 									  Margin="10,0" />
+                            <CheckBox Content="南西海域"
+									  IsChecked="{Binding isArea7Contain, Mode=TwoWay}"
+									  Margin="10,0" />
                             <CheckBox Content="西方"
 									  IsChecked="{Binding isArea4Contain, Mode=TwoWay}"
+									  Margin="10,0" />
+                            <CheckBox Content="西方Ex"
+									  IsChecked="{Binding isArea4ExContain, Mode=TwoWay}"
 									  Margin="10,0" />
                             <CheckBox Content="南方"
 									  IsChecked="{Binding isArea5Contain, Mode=TwoWay}"
 									  Margin="10,0" />
+                            <CheckBox Content="南方Ex"
+									  IsChecked="{Binding isArea5ExContain, Mode=TwoWay}"
+									  Margin="10,0" />
                         </WrapPanel>
                         <WrapPanel Grid.Row="2" Margin="3">
                             <controls:CallMethodButton Content="鎮守府" MethodName="SetArea" MethodParameter="鎮守"/>
-                            <controls:CallMethodButton Content="南西" MethodName="SetArea" MethodParameter="南西"/>
+                            <controls:CallMethodButton Content="鎮守府Ex" MethodName="SetArea" MethodParameter="鎮守Ex"/>
+                            <controls:CallMethodButton Content="南西諸島" MethodName="SetArea" MethodParameter="南西諸島"/>
+                            <controls:CallMethodButton Content="南西諸島Ex" MethodName="SetArea" MethodParameter="南西諸島Ex"/>
                             <controls:CallMethodButton Content="北方" MethodName="SetArea" MethodParameter="北方"/>
+                            <controls:CallMethodButton Content="南西海域" MethodName="SetArea" MethodParameter="南西海域"/>
                             <controls:CallMethodButton Content="西方" MethodName="SetArea" MethodParameter="西方"/>
+                            <controls:CallMethodButton Content="西方Ex" MethodName="SetArea" MethodParameter="西方Ex"/>
                             <controls:CallMethodButton Content="南方" MethodName="SetArea" MethodParameter="南方"/>
+                            <controls:CallMethodButton Content="南方Ex" MethodName="SetArea" MethodParameter="南方Ex"/>
                         </WrapPanel>
                     </Grid>
 
@@ -267,97 +281,77 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="auto">
+                        <GridViewColumn Width="110">
                             <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="海域" HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="12" Text="遠征名" HorizontalAlignment="Stretch" />
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="12" Text="{Binding Area, Mode=OneWay}"  HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
+                                    <TextBlock FontSize="12" Text="{Binding EName, Mode=OneWay}" HorizontalAlignment="Stretch" Padding="0,0,0,0" Margin="0,0,0,0"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="132">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="遠征名" HorizontalAlignment="Center" />
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontSize="12" Text="{Binding EName, Mode=OneWay}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="時間" HorizontalAlignment="Center" />
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontSize="12" Text="{Binding Time, Mode=OneWay}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="90">
+                        <GridViewColumn Width="312">
                             <GridViewColumn.Header>
                                 <TextBlock FontSize="12" Text="第二成否" HorizontalAlignment="Center"/>
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                        <TextBlock FontSize="12" Style="{StaticResource isSuccess2Style}" HorizontalAlignment="Stretch" Padding="0,0,0,0" Margin="0,0,0,0"/>
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                        <TextBlock FontSize="12" Style="{StaticResource isSuccess2Style}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
                                         <ItemsControl FontSize="12" Style="{StaticResource isParameter2Style}" HorizontalAlignment="Stretch" Padding="0,0,0,0" Margin="2,0,0,0" 
-                                                      ItemsSource="{Binding isParameter[2]}" ItemTemplate="{DynamicResource isParameterDataTemplate}" ItemsPanel="{DynamicResource isParameterItemsPanelTemplate}">
+                                                      ItemsSource="{Binding isParameterString[2]}" ItemTemplate="{DynamicResource isParameterDataTemplate}" ItemsPanel="{DynamicResource isParameterItemsPanelTemplate}">
                                         </ItemsControl>
                                         <StackPanel.ToolTip>
                                             <ToolTip >
-                                                <ItemsControl ItemsSource="{Binding isParameter[2]}"  ItemTemplate="{DynamicResource isParameterDataTemplate}" Foreground="{DynamicResource ForegroundBrushKey}"/>
+                                                <ItemsControl ItemsSource="{Binding isParameterString[2]}"  ItemTemplate="{DynamicResource isParameterDataTemplate}" Foreground="{DynamicResource ForegroundBrushKey}"/>
                                             </ToolTip>
                                         </StackPanel.ToolTip>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="90">
+                        <GridViewColumn Width="312">
                             <GridViewColumn.Header>
                                 <TextBlock FontSize="12" Text="第三成否" HorizontalAlignment="Center"/>
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="Transparent">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Background="Transparent">
                                         <TextBlock FontSize="12" Style="{StaticResource isSuccess3Style}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
                                         <ItemsControl FontSize="12" Style="{StaticResource isParameter3Style}" HorizontalAlignment="Stretch" Padding="0,0,0,0" Margin="2,0,0,0" 
-                                                      ItemsSource="{Binding isParameter[3]}" ItemTemplate="{DynamicResource isParameterDataTemplate}" ItemsPanel="{DynamicResource isParameterItemsPanelTemplate}">
+                                                      ItemsSource="{Binding isParameterString[3]}" ItemTemplate="{DynamicResource isParameterDataTemplate}" ItemsPanel="{DynamicResource isParameterItemsPanelTemplate}">
                                         </ItemsControl>
                                         <StackPanel.ToolTip>
                                             <ToolTip >
-                                                <ItemsControl ItemsSource="{Binding isParameter[3]}"  ItemTemplate="{DynamicResource isParameterDataTemplate}" Foreground="{DynamicResource ForegroundBrushKey}"/>
+                                                <ItemsControl ItemsSource="{Binding isParameterString[3]}"  ItemTemplate="{DynamicResource isParameterDataTemplate}" Foreground="{DynamicResource ForegroundBrushKey}"/>
                                             </ToolTip>
                                         </StackPanel.ToolTip>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="90">
+                        <GridViewColumn Width="312">
                             <GridViewColumn.Header>
                                 <TextBlock FontSize="12" Text="第四成否" HorizontalAlignment="Center"/>
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="Transparent">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Background="Transparent">
                                         <TextBlock FontSize="12" Style="{StaticResource isSuccess4Style}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
                                         <ItemsControl FontSize="12" Style="{StaticResource isParameter4Style}" HorizontalAlignment="Stretch" Padding="0,0,0,0" Margin="2,0,0,0" 
-                                                      ItemsSource="{Binding isParameter[4]}" ItemTemplate="{DynamicResource isParameterDataTemplate}" ItemsPanel="{DynamicResource isParameterItemsPanelTemplate}">
+                                                      ItemsSource="{Binding isParameterString[4]}" ItemTemplate="{DynamicResource isParameterDataTemplate}" ItemsPanel="{DynamicResource isParameterItemsPanelTemplate}">
                                         </ItemsControl>
                                         <StackPanel.ToolTip>
                                             <ToolTip >
-                                                <ItemsControl ItemsSource="{Binding isParameter[4]}"  ItemTemplate="{DynamicResource isParameterDataTemplate}" Foreground="{DynamicResource ForegroundBrushKey}"/>
+                                                <ItemsControl ItemsSource="{Binding isParameterString[4]}"  ItemTemplate="{DynamicResource isParameterDataTemplate}" Foreground="{DynamicResource ForegroundBrushKey}"/>
                                             </ToolTip>
                                         </StackPanel.ToolTip>
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="auto">
+                        <GridViewColumn Width="20">
                             <GridViewColumn.Header>
                                 <TextBlock FontSize="12" Text="隻数" HorizontalAlignment="Center"/>
                             </GridViewColumn.Header>
@@ -387,7 +381,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="auto">
+                        <GridViewColumn Width="65">
                             <GridViewColumn.Header>
                                 <TextBlock FontSize="12" Text="旗艦" HorizontalAlignment="Center"/>
                             </GridViewColumn.Header>
@@ -397,7 +391,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="95">
+                        <GridViewColumn Width="215">
                             <GridViewColumn.Header>
                                 <TextBlock FontSize="12" Text="必要艦艇" HorizontalAlignment="Center"/>
                             </GridViewColumn.Header>
@@ -411,109 +405,13 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="60">
+                        <GridViewColumn Width="50">
                             <GridViewColumn.Header>
                                 <TextBlock FontSize="12" Text="ドラム" HorizontalAlignment="Center"/>
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock FontSize="12" Text="{Binding RequireDrum, Mode=OneWay}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="燃料" HorizontalAlignment="Center"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid Style="{StaticResource FuelCellStyle}">
-                                        <TextBlock FontSize="12" Style="{StaticResource FuelStyle}"  HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="弾薬" HorizontalAlignment="Center"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid Style="{StaticResource AmmunitionCellStyle}">
-                                        <TextBlock FontSize="12" Style="{StaticResource AmmunitionStyle}"  HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="鋼材" HorizontalAlignment="Center"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid Style="{StaticResource SteelCellStyle}">
-                                        <TextBlock FontSize="12" Style="{StaticResource SteelStyle}"  HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="ボーキ" HorizontalAlignment="Center"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid Style="{StaticResource BauxiteCellStyle}">
-                                        <TextBlock FontSize="12" Style="{StaticResource BauxiteStyle}"  HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="修復" HorizontalAlignment="Center"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <TextBlock FontSize="12" Text="{Binding InstantRepairMaterials, Mode=OneWay}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="建造" HorizontalAlignment="Center"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <TextBlock FontSize="12" Text="{Binding InstantBuildMaterials, Mode=OneWay}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="開発" HorizontalAlignment="Center"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <TextBlock FontSize="12" Text="{Binding DevelopmentMaterials, Mode=OneWay}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="auto">
-                            <GridViewColumn.Header>
-                                <TextBlock FontSize="12" Text="家具" HorizontalAlignment="Center"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <TextBlock FontSize="12" Text="{Binding FurnitureBox, Mode=OneWay}" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,0,0,0"/>
-                                    </Grid>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
